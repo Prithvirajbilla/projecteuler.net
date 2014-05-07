@@ -353,4 +353,4 @@ def main():
     print "Answer = ", player1
      
 if __name__ == '__main__':
-    main()
+    mn
