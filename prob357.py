@@ -1,5 +1,5 @@
-n = 10**2
-under = 100
+n = 10**8
+under = 10**8
 
 primes_list = [2]
 

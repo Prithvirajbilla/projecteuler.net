@@ -1,37 +1,30 @@
-dp_cache = {}
-length_of_tiles = [2,3,4]
-def dp(number_of_tiles, length):
-	key = "%d-%d-%d-%d"%(number_of_tiles[0],number_of_tiles[1], number_of_tiles[2], length)
-	if key in dp_cache:
-		return dp_cache[key]
+dp = [ [0, 0, 0, 0] for i in range(52)]
 
-	final_ans = 0
-	for idx, no in enumerate(number_of_tiles):
-		if no == 1:
-			ans= length - length_of_tiles[idx] + 1
-			if ans > 0:
-				final_ans = final_ans + ans
-		else:
-			r = length - length_of_tiles[idx]
-			ans = 0
-			if r > 0:
-				for i in range(r+1):
-					copied_array = [number_of_tiles[0], number_of_tiles[1], number_of_tiles[2]]
-					copied_array[idx] = copied_array[idx] - 1
-					res = dp(copied_array, i)
-					ans += res
-				final_ans = final_ans + ans
-			else:
-				dp_cache[key] = 0
-	dp_cache[key] = final_ans
-	return final_ans
+dp[1][0] = 1
+dp[1][1] = 0
+dp[1][2] = 0
+dp[1][3] = 0
 
-result = 0
-for i in range(1, 3):
-	for j in range(1, 3):
-		for k in range(1, 3):
-			partial_ans = dp([i,j,k], 5)
-			print i, j, k, partial_ans
-			result  = result +  partial_ans
+dp[2][0] = 1
+dp[2][1] = 1
+dp[2][2] = 0
+dp[2][3] = 0
 
-print result
+dp[3][0] = 2
+dp[3][1] = 1
+dp[3][2] = 1
+dp[3][3] = 0
+
+dp[4][0] = 4
+dp[4][1] = 2
+dp[4][2] = 1
+dp[4][3] = 1
+
+
+for i in xrange(5, 51):
+	dp[i][0] = dp[i-1][0] + dp[i-1][1] + dp[i-1][2] + dp[i-1][3]
+	dp[i][1] = dp[i-2][0] + dp[i-2][1]+ dp[i-2][2] + dp[i-2][3]
+	dp[i][2] = dp[i-3][0] + dp[i-3][1] +  dp[i-3][2] + dp[i-3][3]
+	dp[i][3] = dp[i-4][0] + dp[i-4][1] + dp[i-4][2] +dp[i-4][3]
+
+print sum(dp[50]), sum(dp[5]), dp[3], dp[4]
