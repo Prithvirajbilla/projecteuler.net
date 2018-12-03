@@ -19,7 +19,7 @@ for i in xrange(0,51):
 
 ncrs = sorted(ncrs)
 
-n = 100000000000
+n = 1000000000000
 
 print len(ncrs), ncrs[-1]
 
@@ -40,23 +40,30 @@ while i <= (n ** 0.5 + 1):
 
   i = i + 2
 
-print len(ncrs), len(primes_list), ncrs[-1], primes_list[-1]
-
 answer = 0
 for ncr_value in ncrs:
 	flag = True
+	flag_num = 0
 	for prime in primes_list:
 		prime_square = prime * prime
 		if prime_square > ncr_value:
 			break
 
 		if ncr_value % prime_square == 0:
+			flag_num = prime_square
 			flag = False
 			break
 
-	if True:
-		if ncr_value > n:
-			print ncr_value, n
+	if flag:
+		if ncr_value > primes_list[-1] * primes_list[-1]:
+			if flag_num == 0:
+				print ncr_value, n
 		answer = answer + ncr_value
 
 print answer
+
+
+
+"""
+1210759611137226
+"""
